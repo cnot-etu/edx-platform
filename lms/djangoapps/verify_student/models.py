@@ -204,10 +204,12 @@ class SSOVerification(IDVerificationAttempt):
     OAUTH2 = 'common.djangoapps.third_party_auth.models.OAuth2ProviderConfig'
     SAML = 'common.djangoapps.third_party_auth.models.SAMLProviderConfig'
     LTI = 'common.djangoapps.third_party_auth.models.LTIProviderConfig'
+    CUSTOM_SSO = 'common.djangoapps.third_party_auth.models.CustomProviderConfig'
     IDENTITY_PROVIDER_TYPE_CHOICES = (
         (OAUTH2, 'OAuth2 Provider'),
         (SAML, 'SAML Provider'),
         (LTI, 'LTI Provider'),
+        (CUSTOM_SSO, 'Custom SSO'),
     )
 
     identity_provider_type = models.CharField(
