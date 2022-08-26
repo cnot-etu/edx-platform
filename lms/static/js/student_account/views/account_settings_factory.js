@@ -103,7 +103,7 @@
                 helpMessage: gettext('The name that is used for ID verification and that appears on your certificates.'),  // eslint-disable-line max-len,
                 persistChanges: true
             };
-            if (syncLearnerProfileData && enterpriseReadonlyAccountFields.fields.indexOf('name') !== -1) {
+            if (readonlyFullnameField || (syncLearnerProfileData && enterpriseReadonlyAccountFields.fields.indexOf('name') !== -1)) {
                 fullnameFieldView = {
                     view: new AccountSettingsFieldViews.ReadonlyFieldView(fullNameFieldData)
                 };

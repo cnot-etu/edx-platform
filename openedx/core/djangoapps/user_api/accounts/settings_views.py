@@ -138,6 +138,7 @@ def account_settings_context(request):
         'show_program_listing': ProgramsApiConfig.is_enabled(),
         'show_dashboard_tabs': True,
         'order_history': user_orders,
+        'readonly_fullname_field': UserProfile.objects.get(user=user).is_user_from_LDAP(),
         'disable_order_history_tab': should_redirect_to_order_history_microfrontend(),
         'enable_account_deletion': configuration_helpers.get_value(
             'ENABLE_ACCOUNT_DELETION', settings.FEATURES.get('ENABLE_ACCOUNT_DELETION', False)

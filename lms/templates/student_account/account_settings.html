@@ -42,6 +42,7 @@ from openedx.core.djangoapps.user_api.accounts.utils import is_secondary_email_f
         socialPlatforms = ${ settings.SOCIAL_PLATFORMS | n, dump_js_escaped_json },
 
         syncLearnerProfileData = ${ bool(sync_learner_profile_data) | n, dump_js_escaped_json },
+        readonlyFullnameField = ${ bool(readonly_fullname_field) | n, dump_js_escaped_json },
         enterpriseName = '${ enterprise_name | n, js_escaped_string }',
         enterpriseReadonlyAccountFields = ${ enterprise_readonly_account_fields | n, dump_js_escaped_json },
         edxSupportUrl = '${ edx_support_url | n, js_escaped_string }',
@@ -66,6 +67,7 @@ from openedx.core.djangoapps.user_api.accounts.utils import is_secondary_email_f
         socialPlatforms,
 
         syncLearnerProfileData,
+        readonlyFullnameField,
         enterpriseName,
         enterpriseReadonlyAccountFields,
         edxSupportUrl,

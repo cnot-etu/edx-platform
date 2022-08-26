@@ -354,6 +354,21 @@ class ProviderConfig(ConfigurationModel):
         return self.enabled and self.site_id == Site.objects.get_current(get_current_request()).id
 
 
+class CustomProviderConfig(ProviderConfig):
+    """
+    Configuration required for this edX instance to act as a Custom
+    SSO and allow users to authenticate and be enrolled in a
+    course via third party. Uses for auto verification
+    """
+    prefix = 'custom_sso'
+    backend_name = 'custom_sso'
+
+    # This provider is not visible to users
+    icon_class = None
+    icon_image = None
+
+
+
 class OAuth2ProviderConfig(ProviderConfig):
     """
     Configuration Entry for an OAuth2 based provider.
