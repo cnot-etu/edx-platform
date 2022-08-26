@@ -954,6 +954,33 @@ def set_id_verification_status(auth_entry, strategy, details, user=None, *args, 
             verification.send_approval_signal(current_provider.slug)
 
 
+def set_id_verification_status_custom_sso(user, *args, **kwargs):
+    """
+    Use the user's authentication with the provider, if configured, as evidence of their identity being verified.
+    """
+    from .models import CustomProviderConfig
+    current_provider = CustomProviderConfig()
+    if user:
+        # Get previous valid, non expired verification attempts for this SSO Provider and user
+        verifications = SSOVerification.objects.filter(
+            user=user,
+            status="approved",
+            created_at__gte=earliest_allowed_verification_date(),
+            identity_provider_type=current_provider.full_class_name,
+            identity_provider_slug='custom_sso',
+        )
+
+        # If there is none, create a new approved verification for the user.
+        if not verifications:
+            SSOVerification.objects.create(
+                user=user,
+                status="approved",
+                name='Custom SSO (LDAP)',
+                identity_provider_type=current_provider.full_class_name,
+                identity_provider_slug='custom_sso',
+            )
+
+
 def get_username(strategy, details, backend, user=None, *args, **kwargs):  # lint-amnesty, pylint: disable=keyword-arg-before-vararg
     """
     Copy of social_core.pipeline.user.get_username to achieve
