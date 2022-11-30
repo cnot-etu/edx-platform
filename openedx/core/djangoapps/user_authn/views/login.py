@@ -588,15 +588,16 @@ def login_user(request, api_version='v1'):  # pylint: disable=too-many-statement
                         possibly_authenticated_user.save()
 
                         profile = UserProfile(user=possibly_authenticated_user)
-                        profile.name = possibly_authenticated_user.username
-                        try:
-                            profile.save()
+                        if not profile:
+                            profile.name = possibly_authenticated_user.username
+                            try:
+                                profile.save()
 
-                            #SSO Verification
-                            pipeline.set_id_verification_status_custom_sso(possibly_authenticated_user)
-                        except Exception:
-                            log.exception(f"UserProfile creation failed for user {user.id}.")
-                            raise
+                                # SSO Verification
+                                pipeline.set_id_verification_status_custom_sso(possibly_authenticated_user)
+                            except Exception:
+                                log.exception(f"UserProfile creation failed for user {user.id}.")
+                                raise
 
                     user = possibly_authenticated_user
             if possibly_authenticated_user and password_policy_compliance.should_enforce_compliance_on_login():
