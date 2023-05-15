@@ -14,6 +14,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth import login as django_login
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -580,6 +581,31 @@ def login_user(request, api_version='v1'):  # pylint: disable=too-many-statement
 
         if not is_user_third_party_authenticated:
             possibly_authenticated_user = _authenticate_first_party(request, user, third_party_auth_requested)
+
+            if not possibly_authenticated_user and not password_policy_compliance.should_enforce_compliance_on_login():
+                with transaction.atomic():  # should be tested for performance and correct use
+                    possibly_authenticated_user = authenticate(
+                        username = request.POST.get('email', ''), password=request.POST.get('password', ''), request=request
+                    )
+
+                    if not possibly_authenticated_user:
+                        password = normalize_password(request.POST.get('password', ''))
+                        possibly_authenticated_user.set_password(password)
+                        possibly_authenticated_user.save()
+
+                        profile = UserProfile(user=possibly_authenticated_user)
+                        if not profile:
+                            profile.name = possibly_authenticated_user.username
+                            try:
+                                profile.save()
+
+                                # SSO Verification
+                                pipeline.set_id_verification_status_custom_sso(possibly_authenticated_user)
+                            except Exception:
+                                log.exception(f"UserProfile creation failed for user {user.id}.")
+                                raise
+
+                    user = possibly_authenticated_user
             if possibly_authenticated_user and password_policy_compliance.should_enforce_compliance_on_login():
                 # Important: This call must be made AFTER the user was successfully authenticated.
                 _enforce_password_policy_compliance(request, possibly_authenticated_user)
