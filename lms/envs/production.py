@@ -1081,3 +1081,14 @@ COURSE_LIVE_GLOBAL_CREDENTIALS["BIG_BLUE_BUTTON"] = {
     "SECRET": ENV_TOKENS.get('BIG_BLUE_BUTTON_GLOBAL_SECRET', None),
     "URL": ENV_TOKENS.get('BIG_BLUE_BUTTON_GLOBAL_URL', None),
 }
+
+INSTALLED_APPS += (
+#    'markdown_deux',
+#    'bootstrapform',
+#    'helpdesk',
+#    'unti2035',
+#    'stsos_widget',
+#    'freetextresponse',
+#    'feedback-xblock',
+    'xblock_jupyter_viewer',
+)

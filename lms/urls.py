@@ -1030,3 +1030,9 @@ urlpatterns += [
 urlpatterns += [
     path('api/mfe_config/v1', include(('lms.djangoapps.mfe_config_api.urls', 'lms.djangoapps.mfe_config_api'), namespace='mfe_config_api'))
 ]
+
+# Jupyter Viewer XBlock Endpoint
+urlpatterns += (
+    path(r'^api/jupyter/', include('xblock_jupyter_viewer.rest.urls',
+                                  namespace='xblock_jupyter_viewer')),
+)

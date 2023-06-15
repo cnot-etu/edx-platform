@@ -103,6 +103,8 @@ from common.djangoapps.util.json_request import JsonResponse
 
 from . import provider
 
+log = getLogger(__name__)
+
 # These are the query string params you can pass
 # to the URL that starts the authentication process.
 #
@@ -959,7 +961,9 @@ def set_id_verification_status_custom_sso(user, *args, **kwargs):
     """
     from .models import CustomProviderConfig
     current_provider = CustomProviderConfig()
+    log.error('1111')
     if user:
+        log.error('2222')
         # Get previous valid, non expired verification attempts for this SSO Provider and user
         verifications = SSOVerification.objects.filter(
             user=user,
