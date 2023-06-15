@@ -3969,6 +3969,7 @@ ALL_LANGUAGES = [
 OPTIONAL_APPS = [
     ('problem_builder', 'openedx.core.djangoapps.content.course_overviews.apps.CourseOverviewsConfig'),
     ('edx_sga', None),
+    ('inline_dropdown', None),
 
     # edx-ora2
     ('submissions', 'openedx.core.djangoapps.content.course_overviews.apps.CourseOverviewsConfig'),
