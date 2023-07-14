@@ -625,7 +625,7 @@ edx-rest-api-client==5.5.0
     #   edx-proctoring
 edx-search==3.4.0
     # via -r requirements/edx/base.txt
-edx-sga==0.20.0
+#edx-sga==0.20.0
     # via -r requirements/edx/base.txt
 edx-submissions==3.5.4
     # via
