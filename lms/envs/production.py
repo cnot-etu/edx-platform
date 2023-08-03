@@ -1081,3 +1081,12 @@ COURSE_LIVE_GLOBAL_CREDENTIALS["BIG_BLUE_BUTTON"] = {
     "SECRET": ENV_TOKENS.get('BIG_BLUE_BUTTON_GLOBAL_SECRET', None),
     "URL": ENV_TOKENS.get('BIG_BLUE_BUTTON_GLOBAL_URL', None),
 }
+
+INSTALLED_APPS += (
+    'bootstrap4form', # Required for nicer formatting of forms with the default templates
+    'account',  # Required by pinax-teams
+    'pinax.invitations',  # Required by pinax-teams
+    'pinax.teams',  # Team support
+    'reversion',  # Required by pinax-teams
+    'helpdesk',
+)

@@ -4999,6 +4999,46 @@ add_plugins(__name__, ProjectType.LMS, SettingsType.COMMON)
 
 DEPRECATED_ADVANCED_COMPONENT_TYPES = []
 
+# django-helpdesk configuration settings
+# You can override django-helpdesk's defaults by redefining them here.
+# To see what settings are available, see the docs/configuration.rst
+# file for more information.
+# Some common settings are below.
+
+HELPDESK_DEFAULT_SETTINGS = {
+            'use_email_as_submitter': True,
+            'email_on_ticket_assign': True,
+            'email_on_ticket_change': True,
+            'login_view_ticketlist': True,
+            'email_on_ticket_apichange': True,
+            'preset_replies': True,
+            'tickets_per_page': 25
+}
+
+# Should the Knowledgebase be enabled?
+HELPDESK_KB_ENABLED = True
+
+# Allow users to change their passwords
+HELPDESK_SHOW_CHANGE_PASSWORD = True
+
+# Instead of showing the public web portal first,
+# we can instead redirect users straight to the login page.
+HELPDESK_REDIRECT_TO_LOGIN_BY_DEFAULT = True
+
+HELPDESK_AUTO_SUBSCRIBE_ON_TICKET_RESPONSE = True
+
+HELPDESK_SUBMIT_A_TICKET_PUBLIC = True
+
+HELPDESK_ANON_ACCESS_RAISES_404 = True
+
+HELPDESK_STAFF_ONLY_TICKET_OWNERS = True
+HELPDESK_VIEW_A_TICKET_PUBLIC = True
+HELPDESK_ALLOW_NON_STAFF_TICKET_UPDATE = False
+QUEUE_EMAIL_BOX_TYPE = 'SMTP'
+QUEUE_EMAIL_BOX_SSL = True
+DEFAULT_FROM_EMAIL = TECH_SUPPORT_EMAIL
+
+
 ############### Settings for video pipeline ##################
 VIDEO_UPLOAD_PIPELINE = {
     'VEM_S3_BUCKET': '',

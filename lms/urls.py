@@ -1033,6 +1033,10 @@ urlpatterns += [
 
 # Jupyter Viewer XBlock Endpoint
 urlpatterns += (
-    path(r'^api/jupyter/', include('xblock_jupyter_viewer.rest.urls',
-                                  namespace='xblock_jupyter_viewer')),
+    path('api/jupyter/', include('xblock_jupyter_viewer.rest.urls', namespace='xblock_jupyter_viewer')),
+)
+
+# Helpdesk
+urlpatterns += (
+    path('helpdesk/', include('helpdesk.urls')),
 )
